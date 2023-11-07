@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
 
 function StudentForm() {
-    
+    const history = useHistory();
     const [student, setStudent] = useState('');
 
 
     // Called when the submit button is pressed
+
     const addStudent = (newStudent) => {
         // POST student to the server
         axios({
@@ -16,6 +17,8 @@ function StudentForm() {
             data: {github_name: newStudent}
         }).then((response) => {
             console.log(response);
+            // navigate to student list using use history
+            history.push('/allStudents');
         }).catch((err) => {
             console.log(err);
         });
@@ -26,6 +29,7 @@ function StudentForm() {
         event.preventDefault();
         addStudent(student);
         clearStudentFields();
+         
     }
 
     // Clear fields of the form by reseting the user
